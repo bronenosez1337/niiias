@@ -1,6 +1,6 @@
-
 #"{Мкс: 0.2 дист= 5 лог = пзг физ =з преп = хв ен = 4f}"
-InitString = "{Мкс: 0.2 дист= 5 лог = пзг} физ =з}"
+
+InitString = "{Мкс: 0.2 дист= о5 лог = пзг физ =з ен = 4f}"
 InitString.lower()
 def search(simv,simv2,i):
     
@@ -16,10 +16,12 @@ def identify(State,Value):
 
     match State:
         case "дист":
-            if (Value.isdigit()):
+            try:
                 Value=int(Value)
                 if(Value >=0 and Value<=31): return Value
-            else: print("Ошибка ввода параметра", State)
+                else: print("Ошибка ввода параметра", bState)
+            except:
+                print("Параметр \"дист\" должен быть числом")
         case "лог":
             match Value:
                 case "с"|"св"|"своб":
@@ -52,7 +54,15 @@ def identify(State,Value):
                     return "стрелка"
                 case _:
                     print ("Input error")
-        case "ен": pass
+        case "ен": 
+            try:
+                Value = bytes.fromhex(Value)
+                return Value
+            except: 
+                print("Параметр должен быть в HEX")
+             
+            
+            
 
 
 
@@ -75,7 +85,7 @@ if (Numbers[1].isdigit()):
     Num_of_Obj = int(Numbers[1])                         # номер объекта
 
 if (not coord_end): pass
-elif(not coord_end+1 == end_of_Init or not coord_end+1 >= end_of_Init):
+elif(not coord_end+1 == end_of_Init):
     coord_begin = search(None,"=",coord_end+1)
     State1 = InitString[coord_end+1:coord_begin].strip()
     coord_end = search(" ",None ,coord_begin+2)
@@ -85,17 +95,17 @@ elif(not coord_end+1 == end_of_Init or not coord_end+1 >= end_of_Init):
     Value1=identify(State1,Value1)
 
 if (not coord_end): pass
-elif(not coord_end+1 == end_of_Init or not coord_end+1 >= end_of_Init):
+elif(not coord_end+1 == end_of_Init):
     coord_begin = search(None,"=",coord_end+1)
     if (not coord_begin): pass
-    elif(not coord_begin+1 == end_of_Init or not coord_begin+1 >= end_of_Init):
+    elif(not coord_begin+1 == end_of_Init):
         State2 = InitString[coord_end+1:coord_begin].strip()
         coord_end = search(" ",None ,coord_begin+2)
         Value2 = InitString[coord_begin+1:coord_end].strip()
         if Value2=="": print("exit")
         Value2=identify(State2,Value2)
 
-if (not coord_end): pass
+if (not coord_end): pass 
 elif(not coord_end+1 == end_of_Init):
     coord_begin = search(None,"=",coord_end+1)
     if (not coord_begin): pass
@@ -104,7 +114,7 @@ elif(not coord_end+1 == end_of_Init):
         coord_end = search(" ",None ,coord_begin+2)
         Value3 = InitString[coord_begin+1:coord_end].strip()
         if Value3=="": print("exit")
-        identify(State3,Value3)
+        Value3 = identify(State3,Value3)
 
 if (not coord_end): pass
 elif(not coord_end+1 == end_of_Init):
@@ -115,7 +125,7 @@ elif(not coord_end+1 == end_of_Init):
         coord_end = search(" ",None ,coord_begin+2)
         Value4 = InitString[coord_begin+1:coord_end].strip()
         if Value4=="": print("exit")
-        identify(State4,Value4)
+        Value4 = identify(State4,Value4)
 
 if (not coord_end): pass
 elif(not coord_end+1 == end_of_Init):
@@ -126,9 +136,9 @@ elif(not coord_end+1 == end_of_Init):
         coord_end = search(" ",None ,coord_begin+2)
         Value5 = InitString[coord_begin+1:coord_end].strip()
         if Value5=="": print("exit")
-        identify(State5,Value5)
+        Value5 = identify(State5,Value5)
 
           
 #         sost1 = InitString[coord_end+1:coord_begin]
 #     #else Возврат к вводу 
-print(" ")
+print("")
