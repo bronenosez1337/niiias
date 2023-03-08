@@ -2,7 +2,10 @@
 
 
 class Train():
-    
+    def __init__(self) -> None:
+        pass
+    def Object_Copy(self,InitString):
+        print(InitString)
     def Input_String(self,InitString):
         #InitString = "{Мкс: 0.2 лог = пзг дист= 5 физ =з преп  = хв } ен = 4f}"
         
@@ -156,25 +159,26 @@ class Train():
     #     pass
 
    
-
-    def object_print(self):
-        try:print("Тип объекта:\t\t{0}".format(getattr(self,"Тип объекта")))
-        except: pass
-        try: print("Номер комплекта:\t{0}".format(getattr(self,"Номер комплекта объекта")))
-        except: pass
-        try: print("Номер объекта:\t\t{0} ".format(getattr(self,"Номер объекта")))
-        except: pass
-        try: print ("Параметр дист:\t\t{0}".format(getattr(self,"дист")))
-        except: pass
-        try: print ("Параметр лог:\t\t{0}".format(getattr(self,"лог")))
-        except: pass
-        try: print ("Параметр физ:\t\t{0}".format(getattr(self,"физ")))
-        except: pass
-        try: print ("Параметр преп:\t\t{0}".format(getattr(self,"преп")))
-        except: pass
-        try: print ("Параметр ен:\t\t{0}".format(getattr(self,"ен").hex().upper()))
-        except: pass
     
+    def object_print(self):
+        
+        try:print ("\tТип объекта:\t\t{0}".format(getattr(self,"Тип объекта")))
+        except: pass
+        try: print ("\tНомер комплекта:\t{0}".format(getattr(self,"Номер комплекта объекта")))
+        except: pass
+        try: print ("\tНомер объекта:\t\t{0}  ".format(getattr(self,"Номер объекта")))
+        except: pass
+        try: print ("\tПараметр дист:\t\t{0}".format(getattr(self,"дист")))
+        except: pass
+        try: print ("\tПараметр лог:\t\t{0}".format(getattr(self,"лог")))
+        except: pass
+        try: print ("\tПараметр физ:\t\t{0}".format(getattr(self,"физ")))
+        except: pass
+        try: print ("\tПараметр преп:\t\t{0}".format(getattr(self,"преп")))
+        except: pass
+        try: print ("\tПараметр ен:\t\t{0}".format(getattr(self,"ен").hex().upper()))
+        except: pass
+        
     
     def search(self,simv,String,i):
         
