@@ -2,12 +2,16 @@
 
 
 class Train():
-
+    
     def Input_String(self,InitString):
         #InitString = "{Мкс: 0.2 лог = пзг дист= 5 физ =з преп  = хв } ен = 4f}"
         
         InitString = InitString.lower()
         begin_of_Init= self.search("{",InitString, 0)
+        if self.search("{",InitString, begin_of_Init+1):
+            print("Символ начала строки инициализации \"{\" не должен повторяться")
+            return False
+            
         end_of_Init= self.search("}",InitString, 0)
         if (begin_of_Init is None or end_of_Init is None):
             print ("Нет меток начала и/или конца описания объекта")
@@ -120,56 +124,55 @@ class Train():
             else:
                 print ("Параметр {0} уже был использован.".format(State5))
                 return False
-        print("")
-        try:
-            self.ObjType = ObjType
-        except: pass
         
         try:
-            self.Num_of_Kompl=Num_of_Kompl
-            self.Num_of_Obj = Num_of_Obj
+            setattr(self,"Тип объекта",ObjType)
+            setattr(self,"Номер комплекта объекта",Num_of_Kompl)
+            setattr(self,"Номер объекта",Num_of_Obj)
         except: pass
-        
+
         try:
-            self.State1 = State1
-            self.Value1 = Value1
+            setattr(self,State1,Value1)
+            setattr(self,State2,Value2)
+            setattr(self,State3,Value3)
+            setattr(self,State4,Value4)
+            setattr(self,State5,Value5)
+            # self.State1 = State1
+            # self.Value1 = Value1
         except: pass
-        try:
-            self.State2 = State2
-            self.Value2 = Value2
-        except: pass
-        try:
-            self.State3 = State3
-            self.Value3 = Value3
-        except: pass
-        try:
-            self.State4 = State4
-            self.Value4 = Value4
-        except: pass
-        try:
-            self.State5 = State5
-            self.Value5 = Value5
-        except: pass
+        # try:
+            
+        # except: pass
+        # try:
+            
+        # except: pass
+        # try:
+            
+        # except: pass
+        # try:
+            
+        # except: pass
     # def __setattr__(self, __name: str, __value: Any) -> None:
     #     pass
 
+   
 
     def object_print(self):
-        try:print("Тип объекта:\t\t{0} ".format(self.ObjType))
+        try:print("Тип объекта:\t\t{0}".format(getattr(self,"Тип объекта")))
         except: pass
-        try: print("Номер комплекта объекта:{0}".format(self.Num_of_Kompl))
+        try: print("Номер комплекта:\t{0}".format(getattr(self,"Номер комплекта объекта")))
         except: pass
-        try: print("Номер объекта:\t\t{0} ".format(self.Num_of_Obj))
+        try: print("Номер объекта:\t\t{0} ".format(getattr(self,"Номер объекта")))
         except: pass
-        try: print ("Параметр {0}:\t\t{1}".format(self.State1,self.Value1))
+        try: print ("Параметр дист:\t\t{0}".format(getattr(self,"дист")))
         except: pass
-        try: print ("Параметр {0}:\t\t{1}".format(self.State2,self.Value2))
+        try: print ("Параметр лог:\t\t{0}".format(getattr(self,"лог")))
         except: pass
-        try: print ("Параметр {0}:\t\t{1}".format(self.State3,self.Value3))
+        try: print ("Параметр физ:\t\t{0}".format(getattr(self,"физ")))
         except: pass
-        try: print ("Параметр {0}:\t\t{1}".format(self.State4,self.Value4))
+        try: print ("Параметр преп:\t\t{0}".format(getattr(self,"преп")))
         except: pass
-        try: print ("Параметр {0}:\t\t{1}".format(self.State5,self.Value5))
+        try: print ("Параметр ен:\t\t{0}".format(getattr(self,"ен").hex().upper()))
         except: pass
     
     
