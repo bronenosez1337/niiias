@@ -12,11 +12,58 @@ def comparefunc():
         print("Вы ввели не число")
         comparefunc()
     
-    print ("\tТип объекта:\t\t{0}\t\t{1}".format(getattr(Objects[objnum1],"Тип объекта"),getattr(Objects[objnum2],"Тип объекта")))
-    print ("\tНомер комплекта:\t{0}\t\t{1}".format(getattr(Objects[objnum1],"Номер комплекта объекта"),getattr(Objects[objnum2],"Номер комплекта объекта"))) 
-    print ("\tНомер объекта:\t\t{0}\t\t{1}".format(getattr(Objects[objnum1],"Номер объекта"),getattr(Objects[objnum2],"Номер объекта")))
-    print ("\tНомер объекта:\t\t{0}\t\t{1}".format(getattr(Objects[objnum1],"Номер объекта"),))
-    print ("{0}")
+    try:
+        print ("\tТип объекта:\t\t{0}\t\t\t\t{1}".format(getattr(Objects[objnum1],"Тип объекта"),getattr(Objects[objnum2],"Тип объекта")))
+        print ("\tНомер комплекта:\t{0}\t\t\t\t{1}".format(getattr(Objects[objnum1],"Номер комплекта объекта"),getattr(Objects[objnum2],"Номер комплекта объекта"))) 
+        print ("\tНомер объекта:\t\t{0}\t\t\t\t{1}".format(getattr(Objects[objnum1],"Номер объекта"),getattr(Objects[objnum2],"Номер объекта")))
+    except:
+        print ("Один из объектов с таким номером не существует.")
+        comparefunc()
+    try:
+        print ("\tПараметр дист:\t\t{0}".format(getattr(Objects[objnum1],"дист")),end="")
+    except:
+        print("\tПараметр дист:\t\t—",end="")
+    try:
+        print ("\t\t\t\t{0}".format(getattr(Objects[objnum2],"дист")))
+    except:
+        print("\t\t\t\t—")
+
+    try:
+        print ("\tПараметр лог:\t\t{0}".format(getattr(Objects[objnum1],"лог")),end="")
+    except:
+        print("\tПараметр лог:\t\t—",end="")
+    try:
+        print ("\t\t\t\t{0}".format(getattr(Objects[objnum2],"лог")))
+    except:
+        print("\t\t\t\t—")
+
+    try:
+        print ("\tПараметр физ:\t\t{0}".format(getattr(Objects[objnum1],"физ")),end="")
+    except:
+        print("\tПараметр физ:\t\t—",end="")
+    try:
+        print ("\t\t\t\t{0}".format(getattr(Objects[objnum2],"физ")))
+    except:
+        print("\t\t\t\t—")
+
+    try:
+        print ("\tПараметр преп:\t\t{0}".format(getattr(Objects[objnum1],"преп")),end="")
+    except:
+        print("\tПараметр преп:\t\t—",end="")
+    try:
+        print ("\t\t\t\t{0}".format(getattr(Objects[objnum2],"преп")))
+    except:
+        print("\t\t\t\t—")
+
+    try:
+        print ("\tПараметр ен:\t\t{0}".format(getattr(Objects[objnum1],"ен").hex()),end="")
+    except:
+        print("\tПараметр ен:\t\t—",end="")
+    try:
+        print ("\t\t\t\t{0}".format(getattr(Objects[objnum2],"ен").hex()))
+    except:
+        print("\t\t\t\t—")
+
 def printfunc():
     objnum = input("Какой объект вывести? Введите порядковый номер:\n")
     
@@ -59,8 +106,8 @@ def new_object():
 
 def print_help():
     print("╔═══════════════════════════════════════════════════════════════════════════════╗")
-    print("║Доступные команды:\t\t\t\t\t\t\t\t║\n║help -- вывод этого текста \t\t\t\t\t\t\t║\n║new -- создание нового объекта класса \t\t\t\t\t\t║\n║copy -- создание копии объекта\t\t\t\t\t\t\t║ ")
-    print("║compare -- сравнение заданных объектов \t\t\t\t\t║\n║exit -- завершение программы\t\t\t\t\t\t\t║")
+    print("║Доступные команды:\t\t\t\t\t\t\t\t║\n║• help — вывод этого текста \t\t\t\t\t\t\t║\n║• new — создание нового объекта класса \t\t\t\t\t\t║\n║• copy — создание копии объекта\t\t\t\t\t\t\t║ ")
+    print("║• compare — сравнение заданных объектов \t\t\t\t\t║\n║• exit — завершение программы\t\t\t\t\t\t\t║")
     print("╠═══════════════════════════════════════════════════════════════════════════════╣")
     print("║Строка инициализации должна иметь вид:\t\t\t\t\t\t║\n║\t{Мкс: 0.2 дист= 5 лог = пзг физ =з преп = хв ен = 4f}\t\t\t║\n║где:\t\t\t\t\t\t\t\t\t\t║")
     print("║\t{ и } метки начала и конца описания объекта\t\t\t\t║")
