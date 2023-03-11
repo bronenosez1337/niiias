@@ -1,20 +1,20 @@
 #"{Мкс: 0.2 дист= 5 лог = пзг физ =з преп = хв ен = 4f}"
 
-
 class Train():
     def __init__(self) -> None:
         pass
-    def Object_Copy(self,InitString):
-        print(InitString)
+    # def Object_Copy(self,InitString):
+    #     print(InitString)
+
     def Input_String(self,InitString):
         #InitString = "{Мкс: 0.2 лог = пзг дист= 5 физ =з преп  = хв } ен = 4f}"
-        
+       
         InitString = InitString.lower()
         begin_of_Init= self.search("{",InitString, 0)
         if self.search("{",InitString, begin_of_Init+1):
             print("Символ начала строки инициализации \"{\" не должен повторяться")
             return False
-            
+        
         end_of_Init= self.search("}",InitString, 0)
         if (begin_of_Init is None or end_of_Init is None):
             print ("Нет меток начала и/или конца описания объекта")
@@ -24,18 +24,18 @@ class Train():
             return False
         
         
-        ObjType = InitString [self.search("{",InitString, 0)+1: self.search (":",InitString, 0)]   # Маркер типа объекта
+        ObjType = InitString [self.search("{",InitString, 0)+1: self.search (":",InitString, 0)]    # Маркер типа объекта
         if ObjType.replace(" ","") == "":
             print("Не введён тип объекта")
             return False
         
         coord_begin=self.search (":",InitString, 0)
         if coord_begin is None:
-            print("Не найден разделитель")
+            print("Не найдена метка конца описания типа объекта")
             return False
         coord_end= self.search(".",InitString,coord_begin+2)
         if coord_end is None: 
-            print("Не найден разделитель")
+            print("Не найден разделитель \".\"")
             return False
         Num_of_Kompl = InitString[coord_begin+1:coord_end]
         coord_begin = self.search(" ",InitString,coord_end+2)
@@ -133,15 +133,14 @@ class Train():
             setattr(self,"Номер комплекта объекта",Num_of_Kompl)
             setattr(self,"Номер объекта",Num_of_Obj)
         except: pass
-
+        
         try:
             setattr(self,State1,Value1)
             setattr(self,State2,Value2)
             setattr(self,State3,Value3)
             setattr(self,State4,Value4)
             setattr(self,State5,Value5)
-            # self.State1 = State1
-            # self.Value1 = Value1
+            
         except: pass
         # try:
             
