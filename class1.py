@@ -11,20 +11,23 @@ class Train():
        
         InitString = InitString.lower()
         begin_of_Init= self.search("{",InitString, 0)
+        if begin_of_Init is None:
+            print("Не найден символ начала строки описания объекта \"{\"")
+            return False
         if self.search("{",InitString, begin_of_Init+1):
             print("Символ начала строки инициализации \"{\" не должен повторяться")
             return False
         
         end_of_Init= self.search("}",InitString, 0)
-        if (begin_of_Init is None or end_of_Init is None):
-            print ("Нет меток начала и/или конца описания объекта")
+        if (end_of_Init is None):
+            print("Не найден символ конца строки описания объекта \"}\"")
             return False
         if InitString[end_of_Init-1]== " " and InitString[end_of_Init-2]== " ":
             print("Не используйте более двух пробелов подряд.")
             return False
         
         
-        ObjType = InitString [self.search("{",InitString, 0)+1: self.search (":",InitString, 0)]    # Маркер типа объекта
+        ObjType = InitString [self.search("{",InitString, 0)+1: self.search (":",InitString, 0)].strip()    # Маркер типа объекта
         if ObjType.replace(" ","") == "":
             print("Не введён тип объекта")
             return False
@@ -54,10 +57,14 @@ class Train():
         if (not coord_begin or coord_begin+1 >= end_of_Init): pass
         else:
             coord_end = self.search("=",InitString,coord_begin+1)
+            if coord_end is None:
+                print ("Атрибут введён неверно. Возможно Вы не ввели \"=\"")
+                return False
             State1 = InitString[coord_begin+1:coord_end].strip()
             coord_begin = self.search(" ",InitString,coord_end+2)
+            
             Value1 = InitString[coord_end+1:coord_begin].strip()
-            if Value1=="": 
+            if Value1=="" or Value1=="}": 
                 print("Ошибка ввода, возможно вы не ввели параметр \"{0}\" или используете лишние пробелы.".format(State1))
                 return False
             Value1=self.identify(State1,Value1)
@@ -67,10 +74,14 @@ class Train():
         if (not coord_begin or coord_begin+1 >= end_of_Init): pass
         else:
             coord_end = self.search("=",InitString,coord_begin+1)
+            if coord_end is None:
+                print ("Атрибут введён неверно. Возможно Вы не ввели \"=\"")
+                return False
             State2 = InitString[coord_begin+1:coord_end].strip()
             coord_begin = self.search(" ",InitString,coord_end+2)
+            
             Value2 = InitString[coord_end+1:coord_begin].strip()
-            if Value2=="": 
+            if Value2=="" or Value2=="}": 
                 print("Ошибка ввода, возможно вы не ввели параметр \"{0}\" или используете лишние пробелы.".format(State2))
                 return False
             if (not State2 == State1):
@@ -83,10 +94,14 @@ class Train():
         if (not coord_begin or coord_begin+1 >= end_of_Init): pass
         else:
             coord_end = self.search("=",InitString,coord_begin+1)
+            if coord_end is None:
+                print ("Атрибут введён неверно. Возможно Вы не ввели \"=\"")
+                return False
             State3 = InitString[coord_begin+1:coord_end].strip()
             coord_begin = self.search(" ",InitString,coord_end+2)
+           
             Value3 = InitString[coord_end+1:coord_begin].strip()
-            if Value3=="": 
+            if Value3=="" or Value3=="}": 
                 print("Ошибка ввода, возможно вы не ввели параметр \"{0}\" или используете лишние пробелы.".format(State3))
                 return False
             if (not State3 == State1 or not State3 == State2):
@@ -100,11 +115,16 @@ class Train():
         if (not coord_begin or coord_begin+1 >= end_of_Init): pass
         else:
             coord_end = self.search("=",InitString,coord_begin+1)
+            if coord_end is None:
+                print ("Атрибут введён неверно. Возможно Вы не ввели \"=\"")
+                return False
             State4 = InitString[coord_begin+1:coord_end].strip()
             coord_begin = self.search(" ",InitString,coord_end+2)
+            
             Value4 = InitString[coord_end+1:coord_begin].strip()
-            if Value4=="": 
+            if Value4=="" or Value4=="}": 
                 print("Ошибка ввода, возможно вы не ввели параметр \"{0}\" или используете лишние пробелы.".format(State4))
+                return False
             if (not State4 == State1 or not State4 == State2 or not State4 == State3):
                 Value4=self.identify(State4,Value4)
                 if Value4 is None: return False
@@ -116,11 +136,16 @@ class Train():
         if (not coord_begin or coord_begin+1 >= end_of_Init): pass
         else:
             coord_end = self.search("=",InitString,coord_begin+1)
+            if coord_end is None:
+                print ("Атрибут введён неверно. Возможно Вы не ввели \"=\"")
+                return False
             State5 = InitString[coord_begin+1:coord_end].strip()
             coord_begin = self.search(" ",InitString,coord_end+2)
+            
             Value5 = InitString[coord_end+1:coord_begin].strip()
-            if Value5=="": 
+            if Value5=="" or Value5=="}": 
                 print("Ошибка ввода, возможно вы не ввели параметр \"{0}\" или используете лишние пробелы.".format(State5))
+                return False
             if (not State5 == State1 or not State5 == State2 or not State5 == State3 or not State5 == State4):
                 Value5=self.identify(State5,Value5)
                 if Value5 is None: return False
@@ -132,7 +157,9 @@ class Train():
             setattr(self,"Тип объекта",ObjType)
             setattr(self,"Номер комплекта объекта",Num_of_Kompl)
             setattr(self,"Номер объекта",Num_of_Obj)
-        except: pass
+        except: 
+            print("Что-то пошло не так")
+            return False
         
         try:
             setattr(self,State1,Value1)
